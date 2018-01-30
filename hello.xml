@@ -1,0 +1,27 @@
+<tryton>
+  <data>
+   
+    <record model="ir.ui.view" id="hello_wizard_start_form">
+      <field name="model">hello.wizard.start</field>
+      <field name="type">form</field>
+      <field name="name">hello_wizard_start_form</field>
+    </record>
+
+    <record model="ir.ui.view" id="hello_wizard_select_user_form">
+      <field name="model">hello.wizard.select_user</field>
+      <field name="type">form</field>
+      <field name="name">hello_wizard_select_user_form</field>
+    </record>
+
+    <record model="ir.action.wizard" id="act_hello_wizard">
+      <field name="name">Hello Wizard</field>
+      <field name="wiz_name">hello.wizard</field>
+    </record>
+    
+    <menuitem id="menu_hello_wizard"
+	      sequence="1"
+	      parent="hello.menu_hello"
+	      icon="tryton-list"
+	      action="act_hello_wizard"/>
+  </data>
+</tryton>

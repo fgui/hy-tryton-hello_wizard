@@ -1,0 +1,3 @@
+<form string="Hello Wizard">
+     <label name="id" string="Welcome to the hello wizard, click next."/>
+</form>

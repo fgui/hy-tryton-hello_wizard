@@ -1,0 +1,4 @@
+<form string="Select User">
+  <label name="user"/>
+  <field name="user"/>
+</form>
