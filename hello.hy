@@ -1,7 +1,8 @@
 (import
   [trytond.pool [Pool]]
   [trytond.model [ModelView fields]]
-  [trytond.wizard [Wizard StateView StateTransition Button]])
+  [trytond.pyson [PYSONEncoder]]
+  [trytond.wizard [Wizard StateAction StateView StateTransition Button]])
 (def --all-- ["HelloStart" "HelloWizard" "HelloSelectUser"])
 
 (defclass HelloStart [ModelView]
@@ -25,15 +26,24 @@
                   "hello_wizard.hello_wizard_select_user_form"
                   [(Button "Cancel" "end" "tryton-cancel")
                    (Button "Next" "create_hello" "tryton-ok" :default True)])
-   create-hello (StateTransition)]
+   create-hello (StateTransition)
+   display-hello (StateAction "hello.act_hello")]
 
 
+  (defn do-display-hello [self action]
+    (assoc action "pyson_domain"
+           (.encode (PYSONEncoder) [(, "name" "=" self.select-user.user.name)]))
+    (, action {}))
+  
+  (defn transition-display-hello [self]
+    "end")
+  
   (defn transition-create-hello [self]
     (setv
       user self.select-user.user
       Hello (.get (Pool) "hello")
       hello (Hello :name user.name :surname "from-user" :code "x"))
     (.save hello)
-    "end"
+    "display_hello"
     )
   )
